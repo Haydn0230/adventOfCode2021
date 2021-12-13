@@ -11,9 +11,9 @@ import (
 
 func main() {
 	container := make([]int, 0)
-	returnInts := func(stringToConvert string) error{
+	returnInts := func(stringToConvert string) error {
 		i, err := strconv.Atoi(stringToConvert)
-		if err !=nil {
+		if err != nil {
 			return fmt.Errorf("failed to convert to int: %v", err)
 		}
 
@@ -29,7 +29,7 @@ func main() {
 
 	var previousV int
 	var results []string
-	for _, currentV  := range container {
+	for _, currentV := range container {
 		if previousV != 0 && previousV < currentV {
 			results = append(results, "Increased")
 		}
@@ -39,8 +39,7 @@ func main() {
 	fmt.Printf("number increased - %v\n", len(results))
 }
 
-
-func ReadValues(filename string, customLogic func(readValue string)error)  error {
+func ReadValues(filename string, customLogic func(readValue string) error) error {
 	xb, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return fmt.Errorf("error reading file - %v", err)
@@ -55,7 +54,7 @@ func ReadValues(filename string, customLogic func(readValue string)error)  error
 		}
 		line = strings.TrimSpace(
 			strings.Replace(line, "\n", " ", 1),
-			)
+		)
 
 		err := customLogic(line)
 		if err != nil {

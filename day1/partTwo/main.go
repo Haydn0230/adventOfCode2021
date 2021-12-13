@@ -15,9 +15,9 @@ var input = "input.txt"
 
 func main() {
 	container := make([]int, 0)
-	returnInts := func(stringToConvert string) error{
+	returnInts := func(stringToConvert string) error {
 		i, err := strconv.Atoi(stringToConvert)
-		if err !=nil {
+		if err != nil {
 			return fmt.Errorf("failed to convert to int: %v", err)
 		}
 
@@ -31,11 +31,11 @@ func main() {
 		fmt.Printf("error reading values %v", err)
 	}
 
-	window :=make([]int, 0, rollingAverage)
+	window := make([]int, 0, rollingAverage)
 	var results []int
-	for _, currentV  := range container {
-		window = append(window,currentV)
-		if len(window) <=rollingAverage {
+	for _, currentV := range container {
+		window = append(window, currentV)
+		if len(window) <= rollingAverage {
 			continue
 		}
 
@@ -59,8 +59,7 @@ func sumIntArray(values []int) int {
 	return total
 }
 
-
-func ReadValues(filename string, customLogic func(readValue string)error)  error {
+func ReadValues(filename string, customLogic func(readValue string) error) error {
 	xb, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return fmt.Errorf("error reading file - %v", err)
@@ -75,7 +74,7 @@ func ReadValues(filename string, customLogic func(readValue string)error)  error
 		}
 		line = strings.TrimSpace(
 			strings.Replace(line, "\n", " ", 1),
-			)
+		)
 
 		err := customLogic(line)
 		if err != nil {

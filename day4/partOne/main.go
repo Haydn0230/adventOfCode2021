@@ -8,14 +8,13 @@ import (
 	"github.com/Haydn0230/advent2021/helpers"
 )
 
-
 type table struct {
 	column [][]cell
-	row [][]cell
+	row    [][]cell
 }
 
 type cell struct {
-	value int
+	value  int
 	marked bool
 }
 
@@ -27,16 +26,15 @@ type splitCSVAndWhitespaceData struct {
 }
 
 // this is over engineered to use interfaces. Classic example of we can but should we?
-func main(){
+func main() {
 	emptyMap := make(map[int]table)
 	d := splitCSVAndWhitespaceData{
 		tables: emptyMap,
 	}
 
 	file := helpers.FileToRead{
-		Filename:"input.txt",
+		Filename:    "input.txt",
 		CustomLogic: d.splitCSVAndWhitespaceInput,
-
 	}
 	// read the tables
 	err := readTables(file)
@@ -49,24 +47,24 @@ func main(){
 	fmt.Printf("The answer is %v:", answer)
 }
 func winner(numberCalled int, valuesToCheck []cell) ([]cell, bool) {
-		markedCounter := 0
-		for i, cell  := range valuesToCheck {
-			if cell.value == numberCalled {
-				cell.marked = true
-				valuesToCheck[i] = cell
-				markedCounter ++
-				continue
-			}
-
-			if cell.marked {
-				markedCounter ++
-			}
-
+	markedCounter := 0
+	for i, cell := range valuesToCheck {
+		if cell.value == numberCalled {
+			cell.marked = true
+			valuesToCheck[i] = cell
+			markedCounter++
+			continue
 		}
-		if markedCounter == len(valuesToCheck) {
-			return valuesToCheck, true
+
+		if cell.marked {
+			markedCounter++
 		}
-		return valuesToCheck, false
+
+	}
+	if markedCounter == len(valuesToCheck) {
+		return valuesToCheck, true
+	}
+	return valuesToCheck, false
 
 }
 
@@ -82,7 +80,6 @@ func sumUnmarked(valuesToCheck [][]cell) int {
 
 	return total
 }
-
 
 func playBingo(tables map[int]table, callList []int) int {
 	for _, numberCalled := range callList {
@@ -111,8 +108,6 @@ func playBingo(tables map[int]table, callList []int) int {
 	return 0
 }
 
-
-
 func readTables(file helpers.ReadValues) error {
 	// read the tables
 	err := file.ReadValues()
@@ -137,7 +132,7 @@ func (d *splitCSVAndWhitespaceData) splitCSVAndWhitespaceInput(readValue string)
 	// we've hit a line break
 	if len(readValue) == 0 {
 		// increment table counter as we're onto a new table
-		d.tableCounter ++
+		d.tableCounter++
 		return nil
 	}
 
@@ -165,7 +160,7 @@ func (d *splitCSVAndWhitespaceData) splitCSVAndWhitespaceInput(readValue string)
 
 		// check if the column exists first
 		if tempTable.column == nil || len(tempTable.column) == columnIdx {
-			tempTable.column = append(tempTable.column,[]cell{newCell})
+			tempTable.column = append(tempTable.column, []cell{newCell})
 		} else {
 			tempTable.column[columnIdx] = append(tempTable.column[columnIdx], newCell)
 		}
@@ -173,13 +168,13 @@ func (d *splitCSVAndWhitespaceData) splitCSVAndWhitespaceInput(readValue string)
 	}
 
 	tempTable.row = append(tempTable.row, tempRow)
-	d.rowCounter ++
+	d.rowCounter++
 	d.tables[d.tableCounter] = tempTable
 	return nil
 }
 
 func readCSV(csv []string) ([]int, error) {
- n := make([]int, 0)
+	n := make([]int, 0)
 	for _, valueAsString := range csv {
 		if valueAsString != "" {
 			valueAsInt, err := strconv.Atoi(valueAsString)

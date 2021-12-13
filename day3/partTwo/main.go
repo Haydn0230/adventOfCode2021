@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	data := make([]string,0)
+	data := make([]string, 0)
 	//data := []string{
 	//	"000",
 	//	"000",
@@ -23,7 +23,7 @@ func main() {
 		data = append(data, readValue)
 		return nil
 	})
-	if err!= nil {
+	if err != nil {
 		fmt.Println("err", err)
 	}
 
@@ -37,7 +37,7 @@ func main() {
 		fmt.Println(err)
 	}
 	energy, err := calcEnergy(dataSplitByPosition)
-	if err!= nil {
+	if err != nil {
 		fmt.Println("err", err)
 	}
 
@@ -49,7 +49,7 @@ func splitByPosition(binaryInput []string) (map[int][]int, error) {
 	binaryOutput := make(map[int][]int)
 	for _, line := range binaryInput {
 		binaryDigits := strings.Split(line, "")
-		for i , b := range binaryDigits {
+		for i, b := range binaryDigits {
 			convertedDigit, err := strconv.Atoi(b)
 			if err != nil {
 				return nil, err
@@ -78,8 +78,8 @@ func lifeSupport(data []string) (int, error) {
 func findNumberByFrequency(highlyFrequent bool, data []string) (int64, error) {
 	currentList := data
 	tempList := make([]string, 0)
-	keys := []int{0, 1,2,3,4,5,6,7,8,9,10,11}
-	for _, k := range keys{
+	keys := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
+	for _, k := range keys {
 		tempList = []string{}
 		if len(currentList) == 1 {
 			fmt.Println("got it", currentList)
@@ -98,7 +98,7 @@ func findNumberByFrequency(highlyFrequent bool, data []string) (int64, error) {
 
 		for _, byteLine := range currentList {
 			byts := strings.Split(byteLine, "")
-			for i,b := range byts {
+			for i, b := range byts {
 				if i == k {
 					convertedDigit, err := strconv.Atoi(b)
 					if err != nil {
@@ -121,28 +121,28 @@ func findNumberByFrequency(highlyFrequent bool, data []string) (int64, error) {
 	return 0, fmt.Errorf("could not find value")
 }
 
-func calcEnergy(dataOutput map[int][]int) (int, error){
+func calcEnergy(dataOutput map[int][]int) (int, error) {
 	var (
-		gamma = ""
+		gamma   = ""
 		epilson = ""
 	)
 
-	keys := []int{0, 1,2,3,4,5,6,7,8,9,10,11}
+	keys := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
 
 	for _, k := range keys {
 		highFrequency, lowFrequency := calcHighLow(dataOutput[k], true)
-		gamma = fmt.Sprintf("%v%v",gamma, strconv.Itoa(highFrequency))
-		epilson = fmt.Sprintf("%v%v",epilson, strconv.Itoa(lowFrequency))
+		gamma = fmt.Sprintf("%v%v", gamma, strconv.Itoa(highFrequency))
+		epilson = fmt.Sprintf("%v%v", epilson, strconv.Itoa(lowFrequency))
 		fmt.Println(highFrequency, lowFrequency)
 	}
 
 	e, err := strconv.ParseInt(epilson, 2, 32)
-	if err !=nil {
+	if err != nil {
 		return 0, err
 	}
 
 	g, err := strconv.ParseInt(gamma, 2, 32)
-	if err !=nil {
+	if err != nil {
 		return 0, err
 	}
 	fmt.Printf("epilson: %v\n  gamma: %v\n", e, g)
@@ -158,7 +158,7 @@ func calcHighLow(binaryInput []int, highlyFrequent bool) (int, int) {
 	for _, v := range binaryInput {
 		if v == 0 {
 			zero = append(zero, v)
-		} else if v == 1  {
+		} else if v == 1 {
 			one = append(one, v)
 		}
 	}

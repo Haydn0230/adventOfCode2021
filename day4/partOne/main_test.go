@@ -622,7 +622,7 @@ func Test_readTables(t *testing.T) {
 	}
 
 	testFileToRead := TestFileToRead{
-		Filename: "test",
+		Filename:    "test",
 		CustomLogic: d.splitCSVAndWhitespaceInput,
 	}
 
@@ -658,5 +658,5 @@ func (r TestFileToRead) ReadValues() error {
 		}
 	}
 
- 	return nil
+	return nil
 }

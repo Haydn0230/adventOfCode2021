@@ -43,7 +43,7 @@ func Test_readTables(t *testing.T) {
 	}
 
 	testFileToRead := TestFileToRead{
-		Filename: "test",
+		Filename:    "test",
 		CustomLogic: d.splitCSVAndWhitespaceInput,
 	}
 
@@ -52,7 +52,7 @@ func Test_readTables(t *testing.T) {
 		t.Error(err)
 	}
 
-	answer := lastWinner(d.callList, d.tables )
+	answer := lastWinner(d.callList, d.tables)
 
 	fmt.Printf("The answer is %v:", answer)
 }
@@ -79,12 +79,12 @@ func (r TestFileToRead) ReadValues() error {
 		}
 	}
 
- 	return nil
+	return nil
 }
 
 func Test_removeKey(t *testing.T) {
-	keyStore = []int{1,2,3,4,5,6}
-	expected := []int{1,2,3,4,5}
+	keyStore = []int{1, 2, 3, 4, 5, 6}
+	expected := []int{1, 2, 3, 4, 5}
 	removeKey(6)
 	assert.Equal(t, expected, keyStore)
 

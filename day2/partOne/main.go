@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func main(){
+func main() {
 	pathHistory := make([]string, 0)
 	err := ReadValues("input.txt", func(readValue string) error {
 		pathHistory = append(pathHistory, readValue)
@@ -19,13 +19,12 @@ func main(){
 		fmt.Println(err)
 	}
 
-
 	horizontal := 0
 	depth := 0
 	for _, path := range pathHistory {
 		splitPath := strings.Split(path, " ")
 		distance, err := strconv.Atoi(splitPath[1])
-		if err !=nil {
+		if err != nil {
 			fmt.Println(err)
 		}
 
@@ -39,11 +38,10 @@ func main(){
 		}
 	}
 
-
 	fmt.Println(horizontal * depth)
 }
 
-func ReadValues(filename string, customLogic func(readValue string)error)  error {
+func ReadValues(filename string, customLogic func(readValue string) error) error {
 	xb, err := ioutil.ReadFile(filename)
 	if err != nil {
 		return fmt.Errorf("error reading file - %v", err)

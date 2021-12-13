@@ -1,15 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
 	"strings"
-"fmt"
+
 	"github.com/Haydn0230/advent2021/helpers"
 )
 
 type table struct {
-	won bool
 	column [][]cell
 	row    [][]cell
 }
@@ -18,6 +18,7 @@ type cell struct {
 	value  int
 	marked bool
 }
+
 var keyStore []int
 
 type splitCSVAndWhitespaceData struct {
@@ -51,7 +52,7 @@ func main() {
 
 func lastWinner(callList []int, tables map[int]table) int {
 	for k := range tables {
-		keyStore = append(keyStore, k )
+		keyStore = append(keyStore, k)
 	}
 
 	sort.Ints(keyStore)
@@ -66,10 +67,9 @@ func lastWinner(callList []int, tables map[int]table) int {
 			winList = append(winList, answer...)
 		}
 	}
-fmt.Println(winList)
+	fmt.Println(winList)
 	return winList[len(winList)-1]
 }
-
 
 func winner(numberCalled int, valuesToCheck []cell) ([]cell, bool) {
 	markedCounter := 0
@@ -117,7 +117,7 @@ func playBingo(tables map[int]table, numberCalled int) []int {
 			if isWinner {
 				removeKey(k)
 
-				winList = append(winList, numberCalled * sumUnmarked(t.row))
+				winList = append(winList, numberCalled*sumUnmarked(t.row))
 				break
 			}
 		}
@@ -129,14 +129,13 @@ func playBingo(tables map[int]table, numberCalled int) []int {
 			column = c
 			if isWinner {
 				removeKey(k)
-				winList = append(winList, numberCalled * sumUnmarked(t.column))
+				winList = append(winList, numberCalled*sumUnmarked(t.column))
 				break
 			}
 		}
 	}
 	return winList
 }
-
 
 func removeKey(key int) {
 	var keyidx int
@@ -148,14 +147,14 @@ func removeKey(key int) {
 	}
 	newKeys := keyStore[:keyidx]
 	newKeys = append(newKeys, keyStore[keyidx+1:]...)
-	keyStore= newKeys
+	keyStore = newKeys
 }
 
-func keys(tables map[int]table) []int{
+func keys(tables map[int]table) []int {
 	if len(keyStore) == 0 {
 		keyStore = make([]int, 0, len(tables))
 		for k := range tables {
-			keyStore = append(keyStore, k )
+			keyStore = append(keyStore, k)
 		}
 
 		sort.Ints(keyStore)
@@ -163,7 +162,6 @@ func keys(tables map[int]table) []int{
 
 	return keyStore
 }
-
 
 func readTables(file helpers.ReadValues) error {
 	// read the tables

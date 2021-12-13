@@ -5,23 +5,21 @@ import (
 	"testing"
 )
 
-
 func Test_EnergyOutput(T *testing.T) {
-input := map[int][]int{
-	0: {0,0,0,0,0},
-	1: {1,1,1,1,1},
-}
+	input := map[int][]int{
+		0: {0, 0, 0, 0, 0},
+		1: {1, 1, 1, 1, 1},
+	}
 
 	calcEnergy(input)
 }
 
-
 func Test_LifeSupport(T *testing.T) {
 	splitInput := map[int][]int{
-		0: {0,0,0,0},
-		1: {1,1,0,1},
-		2: {1,0,0,1},
-		3: {1,0,0,1},
+		0: {0, 0, 0, 0},
+		1: {1, 1, 0, 1},
+		2: {1, 0, 0, 1},
+		3: {1, 0, 0, 1},
 	}
 
 	data := []string{
@@ -31,6 +29,6 @@ func Test_LifeSupport(T *testing.T) {
 		"00100",
 	}
 
-	v, err := findNumberByFrequency(true,data, splitInput )
+	v, err := findNumberByFrequency(true, data, splitInput)
 	fmt.Println(v, err)
 }
